@@ -31,7 +31,7 @@ so for launch an editor in the current working directory and port 9191
 
 ```
 docker run -it --rm \
--v $(wpd):/workspace \
+-v $(pwd):/workspace \
 -p 9191:80 \
 juanitomint/c9collab:latest 
 ```
@@ -68,7 +68,27 @@ juanitomint/c9collab:latest
 
 ## Deployment
 
-in orther to deploy this container into composer file
+in orther to deploy this container into composer file set service like this:
+
+```
+c9:
+    image: juanitomint/c9collab:latest
+    # set your dependencies so it wont start until other services started
+    depends_on: 
+      - web
+    #set environment (optional)
+    environment:
+     - c9_USER : "johndoe"
+     - c9_PASSWD : "johpassword"
+    
+    #map ports to host (optional if you use reverse proxy or other method)
+     ports:
+       - "9191:80"
+    #mount shared volumes for shared project and if needed ssh keys for git to work
+    volumes:
+      - www:/workspace
+      - ssh/:/root/.ssh
+```      
 
 ## Built With
 
