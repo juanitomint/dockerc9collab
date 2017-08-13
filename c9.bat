@@ -18,4 +18,12 @@ if [ -z ${C9_PASSWD+x} ];
 fi
 echo
 
-node /core/server.js -p 80 -w /workspace --listen 0.0.0.0 --collab --packed  -a $C9_USER:$C9_PASSWD
+# check if passed workspace specific dir (for debugger has to be the same as web server)
+if [ -z ${C9_WORKSPACE+x} ];
+    then 
+        echo "C9_WORKSPACE environment is unset setting to: /workspace";
+        C9_WORKSPACE='/workspace'
+    else echo "using C9_WORKSPACE : $C9_WORKSPACE"; 
+fi
+echo
+node /core/server.js -p 80 -w $C9_WORKSPACE --listen 0.0.0.0 --collab --packed  -a $C9_USER:$C9_PASSWD
