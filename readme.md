@@ -106,7 +106,7 @@ Feel free to fork and make merge request to this repo
 
 * **Borda Juan Ignacio** - *Initial work* - [juanitomint](https://github.com/juanitomint)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/juanitomint/contributors) who participated in this project.
 
 ## License
 
