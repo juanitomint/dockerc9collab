@@ -1,6 +1,6 @@
 FROM debian:jessie-slim
 # APT proxy for faster install uses apt-cacher-ng instance
-COPY c9.bat apt.conf /etc/apt/
+#COPY c9.bat apt.conf /etc/apt/
 
 RUN apt update
 RUN apt install -y git tig curl nano build-essential python2.7 php5-cli php5-curl&& rm -rf /var/lib/apt/lists/*
