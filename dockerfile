@@ -1,6 +1,6 @@
-FROM debian:stretch-slim
+FROM debian:jessie-slim
 # APT proxy for faster install uses apt-cacher-ng instance
-# COPY c9.bat apt.conf /etc/apt/
+#COPY c9.bat apt.conf /etc/apt/
 
 RUN apt update
 RUN apt install -y git tig curl nano build-essential python2.7&& rm -rf /var/lib/apt/lists/*
@@ -21,7 +21,7 @@ COPY c9.bat /root
 # Install some helpers
 #CLEAN UP
 COPY bash.bashrc /etc
-RUN apt -y purge build-essential gcc g++ && apt -y autoremove && rm -rf /var/lib/apt/lists/*
+RUN apt -y purge build-essential gcc g++ && apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
 RUN rm -rf /root/.npm
 RUN rm -rf /root//.c9/tmp/.npm
 
