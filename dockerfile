@@ -1,25 +1,8 @@
-FROM tklx/base:stretch
-
+#FROM tklx/base:stretch
+FROM node:7
 ### comment out if you don't have an apt proxy
 COPY 20proxy /etc/apt/apt.conf.d/20proxy
-RUN apt-get update \
-    && apt-get -y install \
-       curl \
-       ca-certificates \
-       build-essential \
-       python \
-       git \
-       libssl-dev \
-    && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb /var/cache/apt/*.bin
-# Install nvm for managing node versions
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | sh
 
-RUN export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && nvm install v7.10.1
-#RUN /root/.nvm/nvm.sh install v7.10.1
-
-RUN ln -s /root/.nvm/versions/node/v7.10.1/bin/npm /usr/bin/npm
-RUN ln -s /root/.nvm/versions/node/v7.10.1/bin/node /usr/bin/node
-RUN npm --version
 ### START C9 install
 RUN git clone https://github.com/c9/core.git
 
@@ -36,6 +19,32 @@ RUN scripts/install-sdk.sh
 # Install some helpers
 COPY bash.bashrc /etc
 
+RUN apt-get update \
+    && apt-get -y install \
+       curl \
+       ca-certificates \
+       git \
+       libssl-dev \
+    && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb /var/cache/apt/*.bin
+
+# Install nvm for managing node versions
+WORKDIR /root
+RUN git clone https://github.com/creationix/nvm.git .nvm
+
+RUN export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" && nvm install v7.10.1
+
+# custom /root/.profile
+COPY .profile /root/
+
+# create node executable
+#COPY node /usr/local/bin/
+#RUN chmod +x /usr/local/bin/node
+
+
+
+# create npm executable
+#COPY npm /usr/local/bin/
+#RUN chmod +x /usr/local/bin/npm
 
 #CLEAN UP
 RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb /var/cache/apt/*.bin
