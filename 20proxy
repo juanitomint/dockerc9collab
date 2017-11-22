@@ -1,0 +1,5 @@
+Acquire::http { Proxy "http://172.17.0.1:3142"; };
+
+Acquire::HTTPS::Proxy::download.docker.com "DIRECT";
+Acquire::HTTP::Proxy::get.docker.io "DIRECT";
+Acquire::HTTP::Proxy::packagecloud.io "DIRECT";
