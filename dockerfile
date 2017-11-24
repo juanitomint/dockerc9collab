@@ -1,9 +1,11 @@
-FROM node:7
+#FROM node:7
+FROM debian:jessie-slim
 # APT proxy for faster install uses apt-cacher-ng instance
-#COPY c9.bat apt.conf /etc/apt/
+COPY apt.conf /etc/apt/
 
-RUN apt update
-RUN apt install -y git tig curl nano build-essential python2.7 php5-cli php5-curl&& rm -rf /var/lib/apt/lists/*
+RUN apt update && \
+apt install -y git tig curl wget nano build-essential python2.7 php5-cli php5-mysql php5-curl php5-gd && \
+rm -rf /var/lib/apt/lists/*
 
 #### START install C9
 RUN git clone https://github.com/c9/core.git
@@ -12,25 +14,21 @@ WORKDIR /core
 RUN scripts/install-sdk.sh
 #### END install C9
 
-RUN apt update
-RUN apt install -y tig nano php5-cli php5-curl
 
 #### START install composer
 COPY install-composer.sh /core
-RUN chmod +x ./install-composer.sh
-RUN ./install-composer.sh
-RUN mv composer.phar /usr/local/bin/composer  
+RUN chmod +x /core/install-composer.sh
+RUN /core/install-composer.sh
 #### END install composer
 
 COPY bash.bashrc /etc
-#CLEAN UP
-RUN rm -rf /root/*.*
-RUN rm -rf /var/lib/apt/lists/*
-RUN rm -rf /var/lib/apt/lists/*
 COPY c9.bat /root
-COPY bash.bashrc /etc
+
+#CLEAN UP
 RUN apt -y purge build-essential gcc g++&&apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
+RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb /var/cache/apt/*.bin
 RUN rm -rf /root/.npm
-RUN rm -rf /root//.c9/tmp/.npm
+RUN rm -rf /root/.c9/tmp/.npm
+RUN rm -rf /etc/apt/apt.conf
 
 CMD /root/c9.bat
