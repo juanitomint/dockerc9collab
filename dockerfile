@@ -1,10 +1,10 @@
 #FROM node:7
-FROM debian:jessie-slim
+FROM debian:stretch-slim
 # APT proxy for faster install uses apt-cacher-ng instance
 COPY apt.conf /etc/apt/
 
 RUN apt update && \
-apt install -y git tig curl wget nano build-essential python2.7 php5-cli php5-mysql php5-curl php5-gd && \
+apt install -y git tig curl wget nano build-essential python2.7 php7.0-cli php7.0-mysql php7.0-curl php7.0-gd php7.0-mbstring php7.0-xml && \
 rm -rf /var/lib/apt/lists/*
 
 #### START install C9
