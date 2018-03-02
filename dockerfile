@@ -4,7 +4,21 @@ FROM debian:stretch-slim
 COPY apt.conf /etc/apt/
 
 RUN apt update && \
-apt install -y git tig curl wget nano build-essential python2.7 php7.0-cli php7.0-mysql php7.0-curl php7.0-gd php7.0-mbstring php7.0-xml && \
+apt install -y \
+git tig \
+curl \
+wget \
+nano \
+build-essential \
+python2.7 \
+php-cli \
+php-mysql \
+php-curl \
+php-gd \
+php-mbstring \
+php-xml \
+php-zip \
+&& \
 rm -rf /var/lib/apt/lists/*
 
 #### START install C9
