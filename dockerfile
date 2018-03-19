@@ -12,17 +12,14 @@ nano \
 build-essential \
 python2.7 \
 php-cli \
-php-dev \
 php-mysql \
 php-mongodb \
 php-curl \
 php-gd \
 php-mbstring \
 php-xml \
-php-zip &&\
-rm -rf /var/lib/apt/lists/* 
+php-zip
 
-RUN pecl install mongodb
 
 #### START install C9
 RUN git clone https://github.com/c9/core.git
@@ -40,6 +37,10 @@ RUN /core/install-composer.sh
 
 COPY bash.bashrc /etc
 COPY c9.bat /root
+
+RUN apt install php-dev &&\
+rm -rf /var/lib/apt/lists/* 
+RUN pecl install mongodb
 
 #CLEAN UP
 RUN apt -y purge php-dev build-essential gcc g++&&apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
