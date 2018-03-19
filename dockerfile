@@ -38,7 +38,7 @@ RUN /core/install-composer.sh
 COPY bash.bashrc /etc
 COPY c9.bat /root
 
-RUN apt install php-dev &&\
+RUN apt install -y php-dev &&\
 rm -rf /var/lib/apt/lists/* 
 RUN pecl install mongodb
 
