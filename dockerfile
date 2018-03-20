@@ -1,16 +1,16 @@
-#FROM node:7
+#FROM node:carbon-stretch
 FROM debian:stretch-slim
 # APT proxy for faster install uses apt-cacher-ng instance
 COPY apt.conf /etc/apt/
+COPY build/.c9 /root/.c9
+COPY build/core /core
 
 RUN apt update && \
 apt install -y \
 git tig \
 curl \
-wget \
 nano \
-build-essential \
-python2.7 \
+wget \
 php-cli \
 php-mysql \
 php-mongodb \
@@ -18,15 +18,13 @@ php-curl \
 php-gd \
 php-mbstring \
 php-xml \
-php-zip
+php-zip \
+php-dev
+
+RUN pecl install mongodb
 
 
-#### START install C9
-RUN git clone https://github.com/c9/core.git
-COPY plugins/c9.ide.run.debug.xdebug/netproxy.js /core/plugins/c9.ide.run.debug.xdebug/netproxy.js
-WORKDIR /core
-RUN scripts/install-sdk.sh
-#### END install C9
+
 
 
 #### START install composer
@@ -38,11 +36,11 @@ RUN /core/install-composer.sh
 COPY bash.bashrc /etc
 COPY c9.bat /root
 
-RUN apt install php-dev &&\
-rm -rf /var/lib/apt/lists/* 
-RUN pecl install mongodb
+### install nodejs Carbon LTS
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && apt install -y nodejs
+###
 
-#CLEAN UP
+### CLEAN UP
 RUN apt -y purge php-dev build-essential gcc g++&&apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
 RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb /var/cache/apt/*.bin
 RUN rm -rf /root/.npm
