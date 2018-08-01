@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 mkdir build
 cd build
 git clone https://github.com/c9/core.git
-docker run -it --rm \
-    -v $(pwd)/.c9:/root/.c9 \
+echo "current dir" $(pwd)
+docker run --rm \
     -v $(pwd)/core:/core \
     -v $(pwd)/apt.conf:/etc/apt/apt.conf \
-    -v $(pwd)/build.sh:/root/build.sh \
+    -v $(pwd)/root:/root \
     debian:stretch \
-    /root/build.sh
+    bash -c "apt update && apt install -y curl python2.7 build-essential git && /core/scripts/install-sdk.sh"

@@ -1,8 +1,7 @@
-#FROM node:carbon-stretch
-FROM debian:stretch-slim
+FROM juanitomint/php7
 # APT proxy for faster install uses apt-cacher-ng instance
 COPY apt.conf /etc/apt/
-COPY build/.c9 /root/.c9
+COPY build/root/.c9 /root/.c9
 COPY build/core /core
 
 RUN apt update && \
@@ -11,18 +10,7 @@ git tig \
 curl \
 nano \
 wget \
-php-cli \
-php-mysql \
-php-mongodb \
-php-curl \
-php-gd \
-php-mbstring \
-php-xml \
-php-zip \
-php-dev
-
-RUN pecl install mongodb
-
+gnupg
 
 
 

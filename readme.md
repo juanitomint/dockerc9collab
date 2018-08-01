@@ -19,10 +19,12 @@ docker-compose (if needed)
 
 ### build
 
-SETEP 1 build c9
+STEP 1 build c9
 ```
 ./buildc9.sh
 ```
+
+SETP 2 
 
 ```
 docker build -t juanitomint/c9collab:latest .
