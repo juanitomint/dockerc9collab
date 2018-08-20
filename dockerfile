@@ -1,9 +1,13 @@
-FROM debian:jessie-slim
-# APT proxy for faster install uses apt-cacher-ng instance
-#COPY c9.bat apt.conf /etc/apt/
+FROM node:carbon-stretch
+ARG VCS_REF
 
-RUN apt update
-RUN apt install -y git tig curl nano build-essential python2.7&& rm -rf /var/lib/apt/lists/*
+LABEL org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url="https://github.com/juanitomint/dockerc9collab"
+
+# APT proxy for faster install uses apt-cacher-ng instance
+COPY c9.bat apt.conf /etc/apt/
+
+RUN apt update && apt install -y git tig curl nano build-essential python2.7
 
 #### START C9 install
 #RUN env GIT_SSL_NO_VERIFY=true git clone https://github.com/c9/core.git /core
