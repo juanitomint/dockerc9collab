@@ -1,7 +1,9 @@
 FROM node:carbon-stretch
 ARG VCS_REF
+ARG BUILD_DATE
 
 LABEL org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-url="https://github.com/juanitomint/dockerc9collab"
 
 # APT proxy for faster install uses apt-cacher-ng instance
