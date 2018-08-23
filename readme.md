@@ -1,6 +1,7 @@
 # c9 collaborative Docker container
 this project aim to provide a collaborative instance runing in a docker container ready to deploy as a single container or in a composer file
-The image is based on official node:7 on debian and compiled on build
+The image is based on official node:carbon-stretch on debian and compiled on build
+
 [![](https://images.microbadger.com/badges/image/juanitomint/c9collab.svg)](https://microbadger.com/images/juanitomint/c9collab "Get your own image badge on microbadger.com")
 [![](https://images.microbadger.com/badges/version/juanitomint/c9collab.svg)](https://microbadger.com/images/juanitomint/c9collab "Get your own version badge on microbadger.com")
 
