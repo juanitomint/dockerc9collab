@@ -26,4 +26,4 @@ if [ -z ${C9_WORKSPACE+x} ];
     else echo "using C9_WORKSPACE : $C9_WORKSPACE"; 
 fi
 echo
-/root/.c9/node/bin/node /core/server.js -p 8080 -w $C9_WORKSPACE --listen 0.0.0.0 --collab --packed  -a $C9_USER:$C9_PASSWD
+/root/.c9/node/bin/node /core/server.js -p 8080 -w $C9_WORKSPACE --listen 0.0.0.0 --collab --packed  -a $C9_USER:$C9_PASSWD --setting-path /root

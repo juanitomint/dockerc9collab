@@ -1,9 +1,10 @@
-FROM juanitomint/php7
+FROM juanitomint/php7:laravel
 # APT proxy for faster install uses apt-cacher-ng instance
 COPY apt.conf /etc/apt/
 COPY build/root/.c9 /root/.c9
 COPY build/core /core
-
+ENV C9_WORKSPACE /var/www/html
+WORKDIR ${C9_WORKSPACE}
 RUN apt update && \
 apt install -y \
 git tig \
@@ -11,8 +12,6 @@ curl \
 nano \
 wget \
 gnupg
-
-
 
 
 #### START install composer
