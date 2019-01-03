@@ -62,16 +62,17 @@ So for
 user: johndoe
 
 passwd: johnpassword
-
+for this combined image c9+apache for laravel
 ```
 docker run -it --rm \
 -v $(pwd):/workspace \
 -e "C9_USER=johndoe" \
 -e "C9_PASSWD=johnpassword" \
--p 9191:80 \
-juanitomint/c9collab:latest 
+-p 9191:9191 \
+-p 80:80 \
+juanitomint/c9collab:php7laravel
 ```
-
+then you will have c9 on port 9191 and apache on port 80
 
 ## Deployment
 
@@ -90,7 +91,8 @@ c9:
     
     #map ports to host (optional if you use reverse proxy or other method)
      ports:
-       - "9191:80"
+       - "9191:9191"
+       - "80:80"
     #mount shared volumes for shared project and if needed ssh keys for git to work
     volumes:
       - www:/workspace
